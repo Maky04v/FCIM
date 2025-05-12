@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎂 Feliz Cumpleaños Ionit</title>
+
+  <!-- Fuente estilo programación -->
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --vh: 1vh;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      height: calc(var(--vh, 1vh) * 100);
+      background-color: #000;
+      font-family: 'Fira Code', monospace;
+      color: #fff;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .message {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 3em;
+      opacity: 0;
+      white-space: pre-line;
+      transition: opacity 1s ease-in-out;
+      text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff;
+      z-index: 2;
+      padding: 0 10px;
+    }
+
+    .show {
+      opacity: 1;
+    }
+
+    .message1 {
+      font-family: 'Consolas', monospace;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 3em;
+      color: #ff1493;
+      text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493, 0 0 30px #ff1493;
+      animation: floatHeart 10s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatHeart {
+      0% {
+        transform: translateY(100%) scale(1);
+      }
+      100% {
+        transform: translateY(-150%) scale(1.5);
+      }
+    }
+
+    #canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .imagen-flotante {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 200px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      z-index: 2;
+      border-radius: 20px;
+      box-shadow: 0 0 25px #00f0ff;
+    }
+
+    .imagen-flotante.show {
+      opacity: 1;
+    }
+
+    .kiss-img {
+      margin-top: 20px;
+      width: 200px;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #ff69b4;
+    }
+
+    .img-corazonff {
+      width: 100px;
+      height: auto;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 0 15px #ff69b4;
+    }
+
+    @media (min-width: 600px) {
+      .message {
+        font-size: 3em;
+      }
+
+      .imagen-flotante {
+        width: 280px;
+      }
+
+      .kiss-img {
+        width: 280px;
+      }
+
+      .heart {
+        font-size: 4em;
+      }
+    }
+  </style>
+
+  <script>
+    function setFullHeight() {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    }
+
+    window.addEventListener('resize', setFullHeight);
+    window.addEventListener('orientationchange', setFullHeight);
+    setFullHeight();
+  </script>
+</head>
+<body>
+
+  <!-- Mensajes -->
+  <div id="mensaje1" class="message message1">CREISTE QUE SE ME OLVIDO?? 🤨</div>
+  <img id="imagenIonit" src="verdadqueteengañe.jpg" alt="Imagen sorpresa" class="imagen-flotante">
+
+  <div id="mensaje2" class="message">
+    ESTO ES PARA TI MI RATA FRIFAYERA VICIOSA 🎂<br>
+    <img src="corazonff.jpg" alt="Corazón Free Fire" class="img-corazonff">
+  </div>
+
+  <div id="mensaje3" class="message">
+    Te quiero mucho, moderfoca.  
+    Eres como un bug que no quiero corregir nunca 🤖💖
+  </div>
+
+  <div id="mensaje4" class="message">
+    🎇 FELIZ CUMPLEAÑOS IONIT!!!! 🎆<br>
+    <img src="kiss.jpg" alt="beso" class="kiss-img">
+  </div>
+
+  <div id="mensaje5" class="message">(El regalo viene por separado)</div>
+  <div id="mensaje6" class="message">Y ahora... SALE UN FRIFAYERRRR 😎🔥 XDD</div>
+
+  <!-- Canvas para fuegos artificiales -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Librería de confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <script>
+    function crearCorazones() {
+      const heartCount = 20;
+      for (let i = 0; i < heartCount; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML = '♡';
+        heart.style.left = `${Math.random() * window.innerWidth}px`;
+
+        if (Math.random() < 0.33) {
+          heart.style.bottom = '0';
+          heart.style.animationDuration = `${Math.random() * 4 + 6}s`;
+        } else if (Math.random() < 0.66) {
+          heart.style.bottom = `${Math.random() * window.innerHeight / 2}px`;
+          heart.style.animationDuration = `${Math.random() * 4 + 8}s`;
+        } else {
+          heart.style.top = '0';
+          heart.style.animationDuration = `${Math.random() * 4 + 6}s`;
+        }
+
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 15000);
+      }
+    }
+
+    const mensajes = [
+      document.getElementById("mensaje1"),
+      document.getElementById("mensaje2"),
+      document.getElementById("mensaje3"),
+      document.getElementById("mensaje4")
+    ];
+
+    let actual = 0;
+
+    function mostrarMensaje(index) {
+      const imagen = document.getElementById("imagenIonit");
+
+      if (index > 0) {
+        mensajes[index - 1].classList.remove("show");
+        if (index - 1 === 0) {
+          imagen.classList.remove("show");
+        }
+      }
+
+      if (index >= mensajes.length) return iniciarFuegos();
+
+      const mensaje = mensajes[index];
+      mensaje.classList.add("show");
+
+      if (index === 0) {
+        crearCorazones();
+        imagen.classList.add("show");
+      }
+
+      setTimeout(() => mostrarMensaje(index + 1), 4000);
+    }
+
+    function iniciarFuegos() {
+      const duration = 6000;
+      const animationEnd = Date.now() + duration;
+
+      const confettiInterval = setInterval(() => {
+        if (Date.now() > animationEnd) {
+          clearInterval(confettiInterval);
+          mostrarFinal();
+          return;
+        }
+
+        confetti({
+          particleCount: 200,
+          angle: Math.random() * 360,
+          spread: 90 + Math.random() * 100,
+          origin: {
+            x: Math.random(),
+            y: Math.random() * 0.6
+          },
+          colors: ['#ff0000', '#ff7f00', '#ffeb00', '#00ff00', '#00bfff', '#800080']
+        });
+      }, 100);
+    }
+
+    function mostrarFinal() {
+      const mensaje5 = document.getElementById("mensaje5");
+      const mensaje6 = document.getElementById("mensaje6");
+
+      mensaje5.classList.add("show");
+      setTimeout(() => {
+        mensaje5.classList.remove("show");
+        mensaje6.classList.add("show");
+      }, 4000);
+    }
+
+    setTimeout(() => mostrarMensaje(0), 1000);
+  </script>
+</body>
+</html>
